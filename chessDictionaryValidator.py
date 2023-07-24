@@ -9,6 +9,14 @@ must be on a valid space from '1a' to '8h'; that is, a piece can't be on space
 followed by 'pawn', 'knight', 'bishop', 'rook', 'queen', or 'king'. This function
 should detect when a bug has resulted in an improper chess board.
 """
+
+cheesers = [[' //==  ||  ||  ||===  ||===   //==  ||===  ||==     //=='],
+            ['||     ||  ||  ||     ||     ||     ||     ||  ||  ||   '],
+            ['||     ||==||  ||==   ||==   ||==|| ||==   ||====  ||==||'],
+            ['||     ||  ||  ||     ||         || ||     ||   ||     ||'],
+            ['||===  ||  ||  ||===  ||===  ====|| ||===  ||   || ====||']]
+
+
 player1 = {'side': ' ', 'pieces': ' ', 'remainingPieces': 16, 'checkmate': False, 'captures': []}
 player2 = {'side': ' ', 'pieces': ' ', 'remainingPieces': 16, 'checkmate': False, 'captures': []}
 
@@ -64,27 +72,41 @@ theBoard = {'a8': '   ', 'b8': '   ', 'c8': '   ', 'd8': '   ', 'e8': '   ', 'f8
 
 
 def playerSelect():
-    print("Welcome to Primitive Cheesers!")
-    print()
-    print("Player 1, choose a color (B/W).")
-    side = input()
-    print()
+    pickASide = False
 
-    if side == 'B':
-        player1[side] = 'Black'
-        player1['pieces'] = pieces['black']
-        player2[side] = 'White'
-        player2['pieces'] = pieces['white']
-    else:
-        player1[side] = 'White'
-        player1['pieces'] = pieces['white']
-        player2[side] = 'Black'
-        player2['pieces'] = pieces['black']
+    while pickASide == False:
+        print("Player 1, choose a color (B/W).")
+        side = input()
+        print()
+        if side == 'B':
+            player1[side] = 'Black'
+            player1['pieces'] = pieces['black']
+            player2[side] = 'White'
+            player2['pieces'] = pieces['white']
+            pickASide = True
+        elif side == 'W':
+            player1[side] = 'White'
+            player1['pieces'] = pieces['white']
+            player2[side] = 'Black'
+            player2['pieces'] = pieces['black']
+            pickASide = True
+        else:
+            print("Please enter either 'B' or 'W' only.")
+            print()
 
     print("Player 1 you are playing as: " +
           player1[side] + " and Player 2 is playing as " + player2[side] + ".")
     print()
 
+print()
+print("Welcome to Primitive")
+print('<--------------------')
+for list in cheesers:
+    i = 0
+    print(list[i])
+    i += 1
+print('                                     -------------------->')
+print()
 playerSelect()
 
 
@@ -135,5 +157,31 @@ def populatePieces(board, pieces):
 
 populatePieces(theBoard, pieces)
 
-def isValidChessBoard(board):
-    print(board)
+#==============================#
+def validMoveChecker():
+    print()
+    # determine if a move is legal - might need to set rules in the pieces dictionary
+    # for example for pawns: if the number is the same it is not legal
+    #                        if the number is lesser or greater (depending on which side) it is not legal
+    #                        if the number or letter increases by more than 1 (except on first turn) it is not legal
+
+def checkChecker():
+    print()
+    # determine if there is a checkmate (for the purpose of this, checkmate occurs when a player only has a king
+    # left or the king is taken)
+
+def captureTallier():
+    print()
+    # if a piece is captured, add it to the capturing player's capture list and decrement the captured players piece count
+
+def turnCaller():
+    print()
+    # this should run until checkmate is true, a player quits, or the game is reset (while loop)
+    # print who's turn it is
+    # run logic for player's turn (ask for move, check if valid, check checkmate, captur talley)
+
+
+
+
+# def isValidChessBoard(board):
+#     print(board)
